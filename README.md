@@ -135,6 +135,7 @@ Create a folder called `templates` and a file called `containers_definitions.jso
 | fargate\_memory | The maximum of memory that the task can use. | string | `"1024"` | no |
 | fargate\_version | The fargate version used to deploy inside ECS cluster. | string | `"1.3.0"` | no |
 | subdomain\_name | The subdomain that will be create for the app. | string | n/a | yes |
+| hosted\_zone | The hosted zone of Route53. | string | n/a | yes |
 
 # Wiki
 
