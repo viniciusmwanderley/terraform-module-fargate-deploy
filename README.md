@@ -12,7 +12,7 @@ This module:
 
 ```terraform
 module "app-deploy" {
-  source                 = "git@github.com:gomex/terraform-module-fargate-deploy.git?ref=v0.1"
+  source                 = "git@github.com:viniciusmwanderley/terraform-module-fargate-deploy.git?ref=v0.3"
   containers_definitions = data.template_file.containers_definitions_json.rendered
   environment            = "development"
   subdomain_name         = "app"
@@ -56,9 +56,9 @@ Create a folder called `templates` and a file called `containers_definitions.jso
 [
   {
     "cpu": 1024,
-    "image": "670631891947.dkr.ecr.us-east-1.amazonaws.com/my_app:${APP_VERSION}",
+    "image": "670631891947.dkr.ecr.us-east-1.amazonaws.com/${APP_IMAGE}:${APP_VERSION}",
     "memory": 1024,
-    "name": "myawesomeapp",
+    "name": "${APP_IMAGE}",
     "networkMode": "awsvpc",
     "portMappings": [
       {
@@ -75,9 +75,9 @@ Create a folder called `templates` and a file called `containers_definitions.jso
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "awesomeapp-gp",
-        "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "myawesomeapp-${APP_VERSION}"
+        "awslogs-group": "${ENVIRONMENT}-${APP_IMAGE}",
+        "awslogs-region": "${AWS_REGION}",
+        "awslogs-stream-prefix": "${APP_IMAGE}-${APP_VERSION}"
       }
     }
   }
